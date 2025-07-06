@@ -11,9 +11,10 @@ import Categories from '../../components/Categories';
 
 // 動的メタデータ生成
 export async function generateMetadata(
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ): Promise<Metadata>{
-  const blog = await getBlogDetail(params.id);
+  const { id } = await params;
+  const blog = await getBlogDetail(id);
   
   return {
     title: `${blog.title} | Scopeway`,
@@ -34,9 +35,10 @@ export async function generateMetadata(
 }
 
 export default async function BlogDetailPage(
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const blog = await getBlogDetail(params.id);
+  const { id } = await params;
+  const blog = await getBlogDetail(id);
 
   return (
     <main className="blog-detail">
