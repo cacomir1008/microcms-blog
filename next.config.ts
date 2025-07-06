@@ -6,7 +6,7 @@ const nextConfig = {
   },
   output: 'export', // 静的サイト生成
   trailingSlash: true, // Cloudflare Pages用に末尾スラッシュを追加
-  assetPrefix: '.', // アセットのプレフィックスを設定
+  assetPrefix: '/', // アセットのプレフィックスを設定
 };
 
 module.exports = nextConfig;
