@@ -7,12 +7,12 @@ import Profile from '../../components/Profile';
 import Header from '../../components/Header';
 import Categories from '../../components/Categories';
 
-type Props = {
-  params: { id: string }
-};
+
 
 // 動的メタデータ生成
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: { params: { id: string } }
+): Promise<Metadata>{
   const blog = await getBlogDetail(params.id);
   
   return {
@@ -33,7 +33,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function BlogDetailPage({ params }: Props) {
+export default async function BlogDetailPage(
+  { params }: { params: { id: string } }
+) {
   const blog = await getBlogDetail(params.id);
 
   return (
