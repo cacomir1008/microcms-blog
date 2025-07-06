@@ -3,4 +3,4 @@ compatibility_date = "2024-01-01"
 
 [build]
 command = "npm run build"
-pages_build_output_dir = "./my-blog/out"
+pages_build_output_dir = "out"
