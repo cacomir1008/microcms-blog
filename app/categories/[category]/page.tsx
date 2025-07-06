@@ -6,6 +6,24 @@ import Header from '../../components/Header';
 import Categories from '../../components/Categories';
 import { getCategoryInfo } from '../../../libs/categoryConfig';
 
+// 静的パラメータを生成
+export async function generateStaticParams() {
+  const data = await getBlogs();
+  const categories = new Set<string>();
+  
+  data.contents.forEach((blog: any) => {
+    if (Array.isArray(blog.category)) {
+      blog.category.forEach((cat: string) => categories.add(cat));
+    } else {
+      categories.add(blog.category);
+    }
+  });
+  
+  return Array.from(categories).map((category) => ({
+    category,
+  }));
+}
+
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
   const data = await getBlogs();

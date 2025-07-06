@@ -1,4 +1,5 @@
 import { getBlogDetail } from '../../../libs/microcmsClient';
+import { getBlogs } from '../../../libs/microcmsClient';
 import { getCategoryInfo } from '../../../libs/categoryConfig';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,7 +8,13 @@ import Profile from '../../components/Profile';
 import Header from '../../components/Header';
 import Categories from '../../components/Categories';
 
-
+// 静的パラメータを生成
+export async function generateStaticParams() {
+  const data = await getBlogs();
+  return data.contents.map((blog: any) => ({
+    id: blog.id,
+  }));
+}
 
 // 動的メタデータ生成
 export async function generateMetadata(
