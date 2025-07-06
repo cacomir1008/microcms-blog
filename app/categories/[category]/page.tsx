@@ -6,22 +6,17 @@ import Header from '../../components/Header';
 import Categories from '../../components/Categories';
 import { getCategoryInfo } from '../../../libs/categoryConfig';
 
-interface Props {
-  params: {
-    category: string;
-  };
-}
-
-export default async function CategoryPage({ params }: Props) {
+export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
+  const { category } = await params;
   const data = await getBlogs();
-  const categoryInfo = getCategoryInfo(params.category);
+  const categoryInfo = getCategoryInfo(category);
   
   // カテゴリに一致する記事をフィルタリング
   const filteredBlogs = data.contents.filter((blog: any) => {
     if (Array.isArray(blog.category)) {
-      return blog.category.includes(params.category);
+      return blog.category.includes(category);
     }
-    return blog.category === params.category;
+    return blog.category === category;
   });
 
   if (!categoryInfo) {
